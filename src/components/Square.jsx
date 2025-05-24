@@ -1,23 +1,20 @@
 const Square = ({ item, index }) => {
+  console.log(item, index);
   return (
     <div
-      className={` col-start-${item.coordinate.column} col-end-${
-        item.coordinate.column + 1
-      } row-start-${item.coordinate.row}  row-end-${
-        item.coordinate.row + 1
-      } col-span-1`}
+      className={` col-start-${item.y} col-end-${item.y + 1} row-start-${
+        item.x
+      }  row-end-${item.y + 1} col-span-1`}
       style={{
         border: "2px solid black",
         backgroundColor: item.color,
         height: "28px",
         width: "28px",
-        gridArea: `${item.coordinate.row}/${item.coordinate.column}/${
-          item.coordinate.row + 1
-        }/${item.coordinate.column + 1}`,
+        gridArea: `${item.x}/${item.y}/${item.y + 1}/${item.y + 1}`,
         textAlign: "center",
       }}
     >
-      {index + 1}
+      {item.id ? item.id : index + 1}
     </div>
   );
 };

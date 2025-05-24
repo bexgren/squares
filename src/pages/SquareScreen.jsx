@@ -1,24 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { handleNewSquare } from "../util/handleNewSquare";
 import { handleClearSquares } from "../util/handleClearSquares";
 import SquareSection from "../components/SquareSection";
 import Button from "../components/Button";
+import { fetchFromApi } from "../util/fetches";
 
-let squareList = localStorage.getItem("squares")
-  ? JSON.parse(localStorage.getItem("squares"))
-  : [];
-
+// let squareList = localStorage.getItem("squares")
+//   ? JSON.parse(localStorage.getItem("squares"))
+//   : [];
 const SquareScreen = () => {
-  const [squares, setSquares] = useState(squareList);
+  const [squares, setSquares] = useState([]);
+  useEffect(() => {
+    const data = fetchFromApi(setSquares, squares);
+    setSquares(data);
+  }, []);
+  let squareList = squares;
+  console.log("after fetch:", squares);
+  // const [squares, setSquares] = useState(squareList);
   const [picked, setPicked] = useState(true);
 
   return (
     <main className="bg-blue-300 min-h-screen flex flex-col items-center gap-4 p-10">
-      <SquareSection squares={squares} />
+      {squares[0] && <SquareSection squares={squares} />}
       <Button
         onClick={() =>
           handleNewSquare({
-            squareList,
             picked,
             setPicked,
             setSquares,

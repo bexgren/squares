@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import Square from "./Square";
 
 const SquareSection = ({ squares }) => {
+  console.log("squaresection:", squares);
   return (
     <div
       className={`grid grid-cols-${squares.length} grid-rows-${squares.length}  relative gap-5 m-auto`}

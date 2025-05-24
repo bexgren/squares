@@ -1,22 +1,22 @@
 import { colorPicker } from "./colorPicker";
+import { fetchFromApi, fetchPost, fetchPut } from "./fetches";
 
-export const handleNewSquare = ({
-  squareList,
-  picked,
-  setPicked,
-  setSquares,
-  squares,
-}) => {
-  if (squareList.length === 0) {
+export const handleNewSquare = ({ picked, setPicked, setSquares, squares }) => {
+  let squareList = squares;
+
+  console.log(squares);
+  if (squareList[0].id === 0) {
     const newColor = colorPicker();
     const newObject = {
-      id: 1,
-      color: newColor,
-      coordinate: { column: 1, row: 1 },
+      Id: 1,
+      Color: newColor,
+      X: 1,
+      Y: 1,
     };
-    squareList.push(newObject);
-    localStorage.setItem("squares", JSON.stringify(squareList));
-    setSquares(JSON.parse(localStorage.getItem("squares")));
+    squareList[0] = newObject;
+    fetchPut(newObject);
+    squareList = fetchFromApi(setSquares, squares);
+    setSquares(squareList);
   } else {
     do {
       const newColor = colorPicker();
@@ -30,45 +30,37 @@ export const handleNewSquare = ({
       });
 
       if (!checkColor) {
-        if (squares[squares.length - 1].coordinate.column === 1) {
+        if (squares[squares.length - 1].Y === 1) {
           const newObject = {
-            id: squares[squares.length - 1].id + 1,
-            color: newColor,
-            coordinate: {
-              column: squares[squares.length - 1].coordinate.row + 1,
-              row: squares[squares.length - 1].coordinate.column,
-            },
+            Color: newColor,
+            Y: squares[squares.length - 1].X + 1,
+            X: squares[squares.length - 1].Y,
           };
           squareList.push(newObject);
+          fetchPost(newObject);
         } else if (
-          squares[squares.length - 1].coordinate.column >
-          squares[squares.length - 1].coordinate.row
+          squares[squares.length - 1].Y > squares[squares.length - 1].X
         ) {
           const newObject = {
-            id: squares[squares.length - 1].id + 1,
-            color: newColor,
-            coordinate: {
-              column: squares[squares.length - 1].coordinate.column,
-              row: squares[squares.length - 1].coordinate.row + 1,
-            },
+            Color: newColor,
+            Y: squares[squares.length - 1].coordinate.Y,
+            X: squares[squares.length - 1].X + 1,
           };
           squareList.push(newObject);
+          fetchPost(newObject);
         } else if (
-          squares[squares.length - 1].coordinate.column <=
-          squares[squares.length - 1].coordinate.row
+          squares[squares.length - 1].Y <= squares[squares.length - 1].X
         ) {
           const newObject = {
-            id: squares[squares.length - 1].id + 1,
-            color: newColor,
-            coordinate: {
-              column: squares[squares.length - 1].coordinate.column - 1,
-              row: squares[squares.length - 1].coordinate.row,
-            },
+            Color: newColor,
+            Y: squares[squares.length - 1].Y - 1,
+            X: squares[squares.length - 1].X,
           };
           squareList.push(newObject);
+          fetchPost(newObject);
         }
-        localStorage.setItem("squares", JSON.stringify(squareList));
-        setSquares(JSON.parse(localStorage.getItem("squares")));
+        console.log(squareList);
+        setSquares(squareList);
         setPicked(true);
         break;
       } else {
