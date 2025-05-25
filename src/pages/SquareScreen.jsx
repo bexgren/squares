@@ -11,8 +11,11 @@ import { fetchFromApi } from "../util/fetches";
 const SquareScreen = () => {
   const [squares, setSquares] = useState([]);
   useEffect(() => {
-    const data = fetchFromApi(setSquares, squares);
-    setSquares(data);
+    const fetchData = () => {
+      const data = fetchFromApi(setSquares, squares);
+      setSquares(data);
+    };
+    fetchData();
   }, []);
   let squareList = squares;
   console.log("after fetch:", squares);
@@ -21,7 +24,8 @@ const SquareScreen = () => {
 
   return (
     <main className="bg-blue-300 min-h-screen flex flex-col items-center gap-4 p-10">
-      {squares[0] && <SquareSection squares={squares} />}
+      {console.log(squares)}
+      <SquareSection squares={squares} />
       <Button
         onClick={() =>
           handleNewSquare({

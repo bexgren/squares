@@ -15,15 +15,13 @@ export const fetchFromApi = async (setSquares, squares) => {
 };
 
 export const fetchPost = async (item) => {
-  console.log(item);
   try {
     const response = await fetch(`${url}/api/square/`, {
       method: "POST",
       headers: {
-        Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: item,
+      body: JSON.stringify(item),
     });
     if (!response.ok) {
       throw new Error("Something went wrong with saving to api");
@@ -41,16 +39,39 @@ export const fetchPut = async (item) => {
     const response = await fetch(`${url}/api/square/0`, {
       method: "PUT",
       headers: {
-        Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: item,
+      body: JSON.stringify(item),
     });
     if (!response.ok) {
       throw new Error("Something went wrong with saving to api");
     }
     const data = await response.json();
     console.log(`Post successfull: ${data}`);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchDelete = async () => {
+  try {
+    const response = await fetch(`${url}/api/square/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: 0,
+        color: "rgb(123,123,123)",
+        x: 0,
+        y: 0,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Something went wrong with saving to api (delete)");
+    }
+    const data = await response.json();
+    console.log(`Delete successfull: ${data}`);
   } catch (error) {
     console.error(error);
   }

@@ -1,5 +1,4 @@
-const Square = ({ item, index }) => {
-  console.log(item, index);
+const Square = ({ item }) => {
   return (
     <div
       className={` col-start-${item.y} col-end-${item.y + 1} row-start-${
@@ -10,11 +9,11 @@ const Square = ({ item, index }) => {
         backgroundColor: item.color,
         height: "28px",
         width: "28px",
-        gridArea: `${item.x}/${item.y}/${item.y + 1}/${item.y + 1}`,
+        gridArea: `${item.x}/${item.y}/${item.x + 1}/${item.y + 1}`,
         textAlign: "center",
       }}
     >
-      {item.id ? item.id : index + 1}
+      {item.id}
     </div>
   );
 };
