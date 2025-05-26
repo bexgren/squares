@@ -23,13 +23,6 @@ npm run dev
 
 The application is now running on http://localhost:5173/ (via Vite)
 
-### Start JSON-server
-
-Cannot run in the same terminal as the developmentserver
-Open a new terminal and start it there:
-
-**More info coming**
-
 ## Folder Structure and Technologies
 
 The project uses **React + Vite** with **Tailwind CSS**
@@ -77,7 +70,7 @@ squares/
    [x] Create square-page
    [x] Make function for picking a new color
    [x] Make the squares position correctly
-   [ ] Build API
+   [x] Build API
    [ ] Document API-structure
 ```
 
