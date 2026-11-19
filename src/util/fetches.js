@@ -7,7 +7,9 @@ export const fetchFromApi = async (setSquares, squares) => {
       throw new Error("Something went wrong when fetching squares");
     }
     await setSquares(data);
-    console.log(`Första fetchen - squares: ${typeof squares} - ${squares}`);
+    console.log(
+      `Första fetchen - squares (${url}/api/square/): ${typeof squares} - ${squares}`,
+    );
     return data;
   } catch (error) {
     console.error(error);
@@ -55,16 +57,16 @@ export const fetchPut = async (item) => {
 
 export const fetchDelete = async () => {
   try {
-    const response = await fetch(`${url}/api/square/`, {
+    const response = await fetch(`${url}/api/deleteall/square/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: 0,
-        color: "rgb(123,123,123)",
-        x: 0,
-        y: 0,
+        Id: 0,
+        Color: "rgb(123,123,123)",
+        X: 0,
+        Y: 0,
       }),
     });
     if (!response.ok) {
