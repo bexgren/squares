@@ -1,7 +1,6 @@
 import { getOppositeColor } from "../util/oppositeColor";
 const Square = ({ item }) => {
   const textColor = getOppositeColor(item.color);
-  console.log(textColor);
   return (
     <div
       className={` col-start-${item.y} col-end-${item.y + 1} row-start-${

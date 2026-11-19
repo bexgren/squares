@@ -1,4 +1,4 @@
-import { url } from "./url";
+import { url } from "./url.js";
 export const fetchFromApi = async (setSquares, squares) => {
   try {
     const response = await fetch(`${url}/api/square/`);
@@ -55,22 +55,20 @@ export const fetchPut = async (item) => {
   }
 };
 
-export const fetchDelete = async () => {
+export const fetchDelete = async (object) => {
   try {
-    const response = await fetch(`${url}/api/deleteall/square/`, {
+    const response = await fetch(`${url}/api/square/deleteall/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        Id: 0,
-        Color: "rgb(123,123,123)",
-        X: 0,
-        Y: 0,
-      }),
+      body: JSON.stringify(object),
     });
     if (!response.ok) {
-      throw new Error("Something went wrong with saving to api (delete)");
+      const details = await response.text();
+      throw new Error(
+        `Delete request failed: HTTP ${response.status} ${response.statusText}${details ? ` - ${details}` : ""}`,
+      );
     }
     const data = await response.json();
     console.log(`Delete successfull: ${data}`);
