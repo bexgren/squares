@@ -5,9 +5,6 @@ import SquareSection from "../components/SquareSection";
 import Button from "../components/Button";
 import { fetchFromApi } from "../util/fetches";
 
-// let squareList = localStorage.getItem("squares")
-//   ? JSON.parse(localStorage.getItem("squares"))
-//   : [];
 const SquareScreen = () => {
   const [squares, setSquares] = useState([]);
   useEffect(() => {
@@ -18,13 +15,10 @@ const SquareScreen = () => {
     fetchData();
   }, []);
   let squareList = squares;
-  console.log("after fetch:", squares);
-  // const [squares, setSquares] = useState(squareList);
   const [picked, setPicked] = useState(true);
 
   return (
-    <main className="bg-blue-300 min-h-screen flex flex-col items-center gap-4 p-10">
-      {console.log(squares)}
+    <main className="bg-blue-200 min-h-screen flex flex-col items-center gap-4 p-10">
       <SquareSection squares={squares} />
       <Button
         onClick={() =>

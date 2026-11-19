@@ -1,5 +1,5 @@
 import { url } from "./url.js";
-export const fetchFromApi = async (setSquares, squares) => {
+export const fetchFromApi = async (setSquares) => {
   try {
     const response = await fetch(`${url}/api/square/`);
     const data = await response.json();
@@ -7,9 +7,7 @@ export const fetchFromApi = async (setSquares, squares) => {
       throw new Error("Something went wrong when fetching squares");
     }
     await setSquares(data);
-    console.log(
-      `Första fetchen - squares (${url}/api/square/): ${typeof squares} - ${squares}`,
-    );
+      console.log(`Post successfull: ${data}`);
     return data;
   } catch (error) {
     console.error(error);
@@ -36,7 +34,6 @@ export const fetchPost = async (item) => {
 };
 
 export const fetchPut = async (item) => {
-  console.log(item);
   try {
     const response = await fetch(`${url}/api/square/0`, {
       method: "PUT",
